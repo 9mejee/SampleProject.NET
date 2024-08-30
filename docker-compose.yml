@@ -1,0 +1,69 @@
+version: '3.4'
+
+services:
+
+  sampleprojectdb:
+    image: mcr.microsoft.com/mssql/server
+
+  sampleproject.api:
+    image: ${DOCKER_REGISTRY-}sampleprojectapi
+    build:
+      context: .
+      dockerfile: SampleProject.API/Dockerfile
+
+  anothersampleprojectdb:
+    image: postgres
+
+  anothersampleproject.api1:
+    image: ${DOCKER_REGISTRY-}anothersampleprojectapi
+    build:
+      context: .
+      dockerfile: AnotherSampleProject.API/Dockerfile
+
+  anothersampleproject.api2:
+    image: ${DOCKER_REGISTRY-}anothersampleprojectapi
+    build:
+      context: .
+      dockerfile: AnotherSampleProject.API/Dockerfile
+
+  anothersampleproject.api3:
+    image: ${DOCKER_REGISTRY-}anothersampleprojectapi
+    build:
+      context: .
+      dockerfile: AnotherSampleProject.API/Dockerfile
+
+  anothersampleproject.loadbalancer:
+    image: ${DOCKER_REGISTRY-}anothersampleprojectloadbalancer
+    build:
+      context: .
+      dockerfile: AnotherSampleProject.LoadBalancer/Dockerfile
+
+  prometheus:
+    image: prom/prometheus
+
+  grafana:
+    image: grafana/grafana
+
+  redis:
+    image: redis/redis-stack
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.14.3
+
+  pgadmin:
+    image: dpage/pgadmin4
+    
+  portainer:
+    image: portainer/portainer-ce
+
+  rabbitmq:
+    image: rabbitmq:management
+
+volumes:
+  portainer_data:
+  postgres_data:
+  pgadmin_data:
+  elasticsearch-data:
